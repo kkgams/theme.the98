@@ -5,7 +5,7 @@
   "source_worktree_status": [],
   "repository": "theme.the98",
   "files_sha256": {
-    ".github/workflows/verify.yml": "f4f1f1920aa0ec16710e8cc5c6b196ff69cbe5d0fcb4bdf8c8566e949831178f",
+    ".github/workflows/verify.yml": "b737a9f83062bdb3437455e7abab0362ee806c4663fe80af564ea77a353765b3",
     "CONTEXT.md": "ed089600756165e1daac72b9aa39c8d533e94b5f7081bd24e5a14a535c1fe410",
     "LICENSING.md": "91957d2652a34fd6a37aa103fa355e1a734a7f6ba187c31c367923d00c24ad0a",
     "README.md": "f2d18029ea2db36b8e95ae853ef0b141f96005fe2bc6418556ee0119a29c1a26",
