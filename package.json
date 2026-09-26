@@ -1,0 +1,15 @@
+{
+  "name": "theme.the98",
+  "version": "0.0.0-private",
+  "private": true,
+  "type": "module",
+  "files": [
+    "src/themes/the98.css"
+  ],
+  "scripts": {
+    "test": "node scripts/verify.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
