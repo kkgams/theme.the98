@@ -1,25 +1,10 @@
-# Licensing status
+# Licensing
 
-**Package and binary redistribution is not licensed. Public source publication
-requires copyright-owner review.**
+The owner authorizes Apache-2.0 for GAMS-authored code. LICENSE is the exact
+existing Apache-2.0 text copied from the filesystem Project Unit.
+The theme adapts MIT-licensed jdan/98.css; all 22 embedded SVGs match the upstream comparison commit. Full MIT terms travel in NOTICE. Apache-2.0 covers GAMS-authored additions, not upstream ownership. The original upstream import version remains unknown; the pinned comparison is evidence, not an import-version claim.
 
-No MIT (or other) license is inherited merely because this source was extracted from
-the current monorepo. All rights remain reserved, and package/binary release is
-blocked until the copyright owner chooses and adds an appropriate license. The
-copyright owner may publish the source while reserving all rights, but must review
-permissions for every included asset before a public source push.
-
-Except for embedded assets called out below when applicable, no external icon or
-font file is copied into this repository. Any textual icon ligatures or font-family
-names are fulfilled by Host-owned CSS/font packages; their copyright, license, and
-notices must be reviewed with those Host packages rather than silently attributed to
-this Unit.
-
-## Embedded artwork review
-
-`the98.css` contains embedded `data:image/svg+xml;base64,...` interface icons.
-Their authorship, provenance, and redistribution permission require explicit owner
-review. The stylesheet references system font-family names but bundles no font
-files. If fonts or third-party icons are added later, their files and notices must be
-reviewed independently before distribution.
-
+NOTICE is a bounded engineering inventory, not a perfect ownership assertion.
+No npm dependencies are vendored. Host libraries, icons and fonts fulfilled by
+the Host are excluded and must be reviewed in their own distribution.
+See PUBLISHING.md for exact-byte owner digest approval and public release gates.
