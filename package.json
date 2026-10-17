@@ -1,6 +1,6 @@
 {
   "name": "theme.the98",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "Apache-2.0",
   "private": true,
   "type": "module",
@@ -8,7 +8,7 @@
     "src/themes/the98.css"
   ],
   "scripts": {
-    "test": "node scripts/verify.mjs && python3 -m unittest discover -s test -p 'test_*.py'"
+    "test": "node scripts/verify.mjs && node --check test/select-arrows.browser.js && python3 -m unittest discover -s test -p 'test_*.py'"
   },
   "engines": {
     "node": ">=24"

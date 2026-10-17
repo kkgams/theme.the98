@@ -1,11 +1,13 @@
 # theme.the98
 
 Initial prerelease extraction of the GAMS `theme` Project Unit from
-`themes/the98.css`. Source behavior is intentionally unchanged.
+`themes/the98.css`. Development source also supports the shared selectable-cell
+grid contract; previously released artifacts are not modified.
 ## Install mapping
 
-Prospective local candidate: `theme.the98-0.2.1.zip` and `SHA256SUMS` for
-`v0.2.1` (prepared, not yet published). After separately approved publication,
+Next local version: `v0.2.2`; planned assets are `theme.the98-0.2.2.zip` and
+`SHA256SUMS`. Packaging is blocked by source/evidence checksum drift; no candidate
+ZIP has been produced. See `PUBLISHING.md`. After separately approved publication,
 download and verify the checksum. Unpack into a separate staging
 folder: copy its deployment files to the same Project-relative paths, and keep its
 LICENSE, NOTICE, README.md and unit.json under `notices/project-units/theme.the98/`.
@@ -31,6 +33,16 @@ These are repository names only. Deployed JavaScript filenames and Project Confi
 remain unchanged. The list records actual static configuration/call boundaries; it
 does not claim that every interaction has a standalone dynamic integration test.
 
+## Selectable cells
+
+`table[role="grid"] td[role="gridcell"][aria-selected="true"]` uses the same
+classic blue/white selection treatment as selected rows, without selecting the
+whole row. Keyboard focus is shown separately with an inset dotted outline.
+The Host's `/util/selectable-grid.js` supplies interaction; this theme only owns
+appearance. See the workspace View guide's **Selectable cell grids** section.
+Release evidence/approval digests remain unchanged; packaging is blocked until
+an explicitly authorized, bounded evidence refresh covers these source changes.
+
 ## Verify
 
 Requires Node.js 24 and Python 3 (stdlib only).
@@ -44,6 +56,24 @@ metadata, checks each JavaScript file in that boundary with `node --check`, reje
 unresolved or escaping local imports/assets, permits only the documented Host
 absolute import roots, and resolves non-data CSS `url(...)` assets. Git internals,
 dependency installs, and build outputs are outside the scan boundary.
+
+### Select arrow regression
+
+Table editors must clear only `background-color`, never the `background`
+shorthand: that shorthand removes the select's normal arrow and resets its
+position/repeat. Pressed styling then restores only the image, causing tiling.
+
+`test/select-arrows.browser.js` checks the actual CSS cascade for standalone and
+table selects in normal, focused, active, focused-active and disabled states.
+From the `view.character` browser preview console, run:
+
+```js
+import('/__preview__/select-arrows.js').then(({ checkSelectArrows }) => checkSelectArrows())
+```
+
+Expected: `passed: 10`. `npm test` also syntax-checks this browser fixture; it does
+not claim to execute browser rendering. The fix is in development source, not
+already-downloaded/released theme artifacts.
 
 ## Release status
 

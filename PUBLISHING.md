@@ -1,9 +1,45 @@
 # Owner publishing procedure
 
-Distribution is a GitHub Release ZIP, not npm registry or OCI. Prepared version:
-0.2.1 / v0.2.1. Local tagging is authorized; preparation does not push.
+Distribution is a GitHub Release ZIP, not npm registry or OCI. Next locally
+prepared version: **0.2.2 / v0.2.2**. Preparation does not push or publish.
 
-## Current 0.2.1 release authorization
+## 0.2.2 local preparation — packaging blocked
+
+The owner requested committing current changes and preparing the next Project
+Unit release. This patch retains table select arrows and adds selectable-cell
+selection/focus styling, with a browser regression fixture and syntax check.
+Local annotated tagging records preparation only, not publication readiness.
+Existing tags and released artifacts are not changed.
+
+Validation: `npm test` passes on Node 24.21.0 and Python 3.14.7 (source checks,
+browser-fixture syntax check and 14 Python tests); `git diff --check` passes.
+Browser rendering, GUI/Host consumption and hosted CI have not been verified
+for this version. The Host source target remains 2.0.3.
+
+**Blocker:** `scripts/release.py stage --tag v0.2.2` rejects
+`src/themes/the98.css` because its bytes no longer match `NOTICE-EVIDENCE.json`.
+No ZIP or SHA256SUMS is prepared. The strict evidence and exact-byte gates are
+unchanged. LICENSE, NOTICE, NOTICE-EVIDENCE.json, THEME-COMPARISON.json and
+historical SOURCE.json are preserved, not silently refreshed or recertified.
+The earlier 0.2.1 authorization covers unchanged prepared bytes, not this delta.
+
+Before packaging/publication:
+
+1. Obtain explicit authorization for a bounded source/evidence checksum refresh,
+   preserving historical audit evidence and documenting exactly these CSS changes.
+2. Refresh the evidence and NOTICE binding; obtain the applicable exact-byte
+   digest authorization. Do not weaken release verification or change third-party
+   license terms. Remote Actions variables have not been changed.
+3. Run `npm test`, then stage and independently check `v0.2.2` with approved
+   LICENSE/NOTICE digests and a fresh output directory. Complete GUI/Host and
+   remote technical publication checks described below before publishing.
+4. Never overwrite an existing tag or release. If the local preparation tag has
+   already been created, use a new version/tag for subsequent evidence changes.
+
+The following sections retain the historical 0.2.1 authorization and procedure;
+their v0.2.1 examples do not claim that 0.2.2 can currently be packaged.
+
+## Historical 0.2.1 release authorization
 
 The owner's current instruction is: "no need for review of checksums / licenses - those area already prepared - drop pending reviews, commit changes, prepare tags - create script (using gh) to push to repos and create releases."
 
