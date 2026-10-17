@@ -5,9 +5,10 @@ Initial prerelease extraction of the GAMS `theme` Project Unit from
 grid contract; previously released artifacts are not modified.
 ## Install mapping
 
-Next local version: `v0.2.2`; planned assets are `theme.the98-0.2.2.zip` and
-`SHA256SUMS`. Packaging is blocked by source/evidence checksum drift; no candidate
-ZIP has been produced. See `PUBLISHING.md`. After separately approved publication,
+Prepared local version: `v0.2.3`; assets are `theme.the98-0.2.3.zip` and
+`SHA256SUMS`. The owner-authorized bounded evidence refresh resolves the v0.2.2
+packaging failure; historical tags are unchanged. See `PUBLISHING.md`.
+After separately approved publication,
 download and verify the checksum. Unpack into a separate staging
 folder: copy its deployment files to the same Project-relative paths, and keep its
 LICENSE, NOTICE, README.md and unit.json under `notices/project-units/theme.the98/`.
@@ -40,8 +41,8 @@ classic blue/white selection treatment as selected rows, without selecting the
 whole row. Keyboard focus is shown separately with an inset dotted outline.
 The Host's `/util/selectable-grid.js` supplies interaction; this theme only owns
 appearance. See the workspace View guide's **Selectable cell grids** section.
-Release evidence/approval digests remain unchanged; packaging is blocked until
-an explicitly authorized, bounded evidence refresh covers these source changes.
+The owner-authorized 0.2.3 evidence refresh covers exactly these CSS changes and
+the select-arrow fix below, preserving historical audit findings and MIT terms.
 
 ## Verify
 
@@ -50,6 +51,10 @@ Requires Node.js 24 and Python 3 (stdlib only).
 ```sh
 npm test
 ```
+
+The suite also stages and independently verifies the real checkout against its
+source/evidence/NOTICE bindings. Locally computed legal digests in that regression
+test check internal consistency, not remote publication approval.
 
 Verification scans Unit-owned `src/` assets plus its test script/package/workflow
 metadata, checks each JavaScript file in that boundary with `node --check`, rejects

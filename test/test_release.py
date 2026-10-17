@@ -67,6 +67,19 @@ class ReleaseTests(unittest.TestCase):
             self.assertEqual(unit['host']['target'], '2.0.3')
             self.assertNotIn('tested', unit['host'])
 
+    def test_current_checkout_can_stage_and_check(self):
+        # Exercise the real checkout, not only synthetic evidence. These local
+        # digests validate internal consistency, not remote owner approval.
+        root = SCRIPT.parents[1]
+        package = json.loads((root / 'package.json').read_text())
+        env = {f'APPROVED_{name}_SHA256': release.digest((root / name).read_bytes())
+               for name in ('LICENSE', 'NOTICE')}
+        env['GITHUB_REPOSITORY'] = 'kkgams/' + package['name']
+        with patch.dict(os.environ, env):
+            tag = 'v' + package['version']
+            release.stage(root, self.out, tag)
+            release.check(root, self.out, tag)
+
     def test_changed_checksum(self):
         self.stage()
         (self.out / 'SHA256SUMS').write_text('bad')

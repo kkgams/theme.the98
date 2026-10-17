@@ -1,9 +1,50 @@
 # Owner publishing procedure
 
 Distribution is a GitHub Release ZIP, not npm registry or OCI. Next locally
-prepared version: **0.2.2 / v0.2.2**. Preparation does not push or publish.
+prepared version: **0.2.3 / v0.2.3**. Preparation does not push or publish.
 
-## 0.2.2 local preparation — packaging blocked
+## 0.2.3 bounded evidence refresh
+
+The owner approved the proposed bounded evidence refresh, preservation of audit
+history and preparation of a new v0.2.3 instead of moving v0.2.2. The source is
+unchanged from v0.2.2. NOTICE-EVIDENCE.json updates only the CSS input digest and
+appends a release_maintenance record with exact before/after hashes and scope.
+Historical audit findings and SOURCE.json remain historical, not recertified.
+NOTICE changes only its evidence-binding suffix. LICENSE, full NOTICE body,
+third-party MIT terms, embedded SVG payloads and THEME-COMPARISON.json are unchanged.
+The old evidence and NOTICE bytes remain available at commit
+`7b56a6b0dcb47420c8200b5d237074992a02dbb5` (v0.2.2).
+
+Validation: `npm test` passes on Node 24.21.0 and Python 3.14.7 with 15 tests,
+including real-checkout staging/checking. That new regression reproduced the
+reported error before the refresh and passes afterwards. Local CLI stage/check
+and a second-stage byte comparison validate deterministic v0.2.3 packaging.
+`git diff --check` passes. Production verification and workflows are unchanged.
+Browser rendering, GUI/Host consumption, hosted CI and remote publication checks
+remain unverified; local preparation is not publication approval.
+
+Exact local legal digests for the authorized refresh:
+
+```text
+LICENSE cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+NOTICE  71b58e8a2a77fc51bf235fff9bf1814b20d3f2af7c4d974ac309e7e788fb4b25
+```
+
+Remote Actions variables have NOT been changed. Before pushing for publication,
+set `LICENSE_SHA256` and `NOTICE_SHA256` to these values under the owner's remote
+publication process; a stale NOTICE_SHA256 will correctly fail verification.
+Complete the outstanding GUI/Host and remote technical gates. Do not push v0.2.2
+as a retry or overwrite existing tags/releases.
+
+Local packaging (export the APPROVED_LICENSE_SHA256 and APPROVED_NOTICE_SHA256
+values above; output must not exist):
+
+```sh
+python3 scripts/release.py stage --tag v0.2.3
+python3 scripts/release.py check --tag v0.2.3
+```
+
+## Historical 0.2.2 local preparation — packaging blocked
 
 The owner requested committing current changes and preparing the next Project
 Unit release. This patch retains table select arrows and adds selectable-cell

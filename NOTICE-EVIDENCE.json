@@ -2,7 +2,7 @@
   "files_sha256": {
     "THEME-COMPARISON.json": "7de98dca238a7890fdca90a637d83fce9afab725a8b618247286528af3bfb2c1",
     "licenses/98.css.MIT.txt": "8933005629892c51d896f7591b5e79c39a17617ce678231e4c3aa7d412d2682f",
-    "src/themes/the98.css": "f50db6b86ee61471fb48443e823cb3781553ee84e203fee018d77a31eb96bc4d"
+    "src/themes/the98.css": "38e6d798a4461148a7825d240b22f88ae55210f9cb17f6faed28a0fe9a421eeb"
   },
   "limits": "No universal plagiarism search or legal ownership certification. Follow-history can end at file creation/copy and cannot establish upstream import version. Generated package metadata is not source provenance.",
   "scope": "13 entry-source closures from packaging/ecosystem/ui.py (12 JavaScript Units + theme.the98); Host imports and sibling Project Units excluded. No code changes or wholesale relicensing.",
@@ -164,5 +164,25 @@
         "repository": "https://github.com/jdan/98.css"
       }
     ]
-  }
+  },
+  "release_maintenance": [
+    {
+      "version": "0.2.3",
+      "baseline_commit": "7b56a6b0dcb47420c8200b5d237074992a02dbb5",
+      "source_delta_base_tag": "v0.2.1",
+      "authorization": "Owner approved bounded evidence checksum refresh, NOTICE binding and local v0.2.3 preparation after the v0.2.2 packaging failure. No remote push, publication or Actions variable changes authorized here.",
+      "previous_evidence_sha256": "c7afc316f529735b9f29d7ce76532e9e54b67f534e8b4d104948c19e8f5d28a8",
+      "previous_notice_sha256": "236310cd569c3ef75c26563256a82506ccdbd106e2018820db40a5a870edba33",
+      "notice_body_sha256": "acbfd1236f4f6dc891b1034556732bb63d7d12d30a14ffa9a5754c8b77e7ee82",
+      "changed_inputs": {
+        "src/themes/the98.css": {
+          "before": "f50db6b86ee61471fb48443e823cb3781553ee84e203fee018d77a31eb96bc4d",
+          "after": "38e6d798a4461148a7825d240b22f88ae55210f9cb17f6faed28a0fe9a421eeb"
+        }
+      },
+      "change_boundary": "Replace table-editor background shorthand with background-color to preserve select arrows; add selectable gridcell selection and focus-visible styling. No other source changes.",
+      "preserved": "Historical scope/source_commit/unit findings below describe the original audit, not a new audit of current bytes. Previous evidence and NOTICE are recoverable at baseline_commit. LICENSE, full NOTICE body, MIT terms, embedded SVG payloads, THEME-COMPARISON.json, SOURCE.json and strict production verification are unchanged.",
+      "limitations": "No new legal audit, hosted CI, browser rendering or GUI/Host consumption result. This record is not publication approval."
+    }
+  ]
 }
