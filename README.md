@@ -5,9 +5,9 @@ Initial prerelease extraction of the GAMS `theme` Project Unit from
 grid contract; previously released artifacts are not modified.
 ## Install mapping
 
-Prepared local version: `v0.2.3`; assets are `theme.the98-0.2.3.zip` and
-`SHA256SUMS`. The owner-authorized bounded evidence refresh resolves the v0.2.2
-packaging failure; historical tags are unchanged. See `PUBLISHING.md`.
+Prepared local version: `v0.2.4`; assets are `theme.the98-0.2.4.zip` and
+`SHA256SUMS`. The owner-authorized bounded evidence refresh covers grouped-select sizing and
+arrow scaling; historical evidence and tags are unchanged. See `PUBLISHING.md`.
 After separately approved publication,
 download and verify the checksum. Unpack into a separate staging
 folder: copy its deployment files to the same Project-relative paths, and keep its
@@ -43,6 +43,20 @@ The Host's `/util/selectable-grid.js` supplies interaction; this theme only owns
 appearance. See the workspace View guide's **Selectable cell grids** section.
 The owner-authorized 0.2.3 evidence refresh covers exactly these CSS changes and
 the select-arrow fix below, preserving historical audit findings and MIT terms.
+
+## Mixed button/select groups (0.2.4)
+
+Direct-child single-line selects in `[role="buttongroup"]` stretch with buttons
+at a minimum height of 23px. Standalone selects retain their 21px height.
+Select arrows scale to the control height minus 4px; no relative top offset is
+applied. The Host must provide the mixed-group base rules introduced in 2.0.8.
+The historical package metadata target of 2.0.3 does not assert mixed-group
+support on that Host version.
+
+The Host fixture `gams/test/fixtures/buttongroup.html`, with this theme selected,
+passed 111 browser checks, including icon buttons and eight control orders.
+The existing select-arrow browser regression passed all 10 states. These are
+browser CSS checks, not an external-Project desktop or released-package test.
 
 ## Verify
 

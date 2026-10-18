@@ -1,7 +1,57 @@
 # Owner publishing procedure
 
 Distribution is a GitHub Release ZIP, not npm registry or OCI. Next locally
-prepared version: **0.2.3 / v0.2.3**. Preparation does not push or publish.
+prepared version: **0.2.4 / v0.2.4**. Preparation does not tag, push or publish.
+
+## 0.2.4 bounded evidence refresh
+
+The owner approved bounded version/evidence maintenance and local release
+preparation after reviewing mixed button/select groups. The source delta from
+immutable v0.2.3 is exactly:
+
+- Group-scoped `height: auto` and `min-height: 23px` for direct-child single-line
+  selects. Standalone fields keep their sizing; there is no `top` offset.
+- `select` background size becomes `auto calc(100% - 4px)`.
+
+NOTICE-EVIDENCE.json updates only the stylesheet input digest and appends a
+0.2.4 maintenance record. Historical audit findings and the 0.2.3 record remain
+unchanged. NOTICE changes only its evidence-binding suffix. LICENSE, full NOTICE
+body, MIT terms, embedded SVG payloads, THEME-COMPARISON.json, SOURCE.json and
+production verification retain their exact bytes. Package version is 0.2.4;
+README documents the Host 2.0.8 mixed-group requirement separately from the
+historical 2.0.3 target in generated unit.json. No packaging contract is changed.
+
+Candidate digests (bounded maintenance, not a new legal audit):
+
+```text
+LICENSE cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+NOTICE  ebc048837b797e86331f7f5c1b347240926b8ebbf47130ee22b441b20bef9d8b
+NOTICE-EVIDENCE.json 7cd933e1dc124edd142aef0f5fcac9e8a5ed599aae65cb86b180c401434042a3
+```
+
+`npm test` passes: source checks, browser-fixture syntax and 15 Python tests,
+including real-checkout stage/check. Browser checks against development Host CSS
+pass: 111 group checks and 10 select-arrow states. Local stage/check and repeated
+staging produce identical candidate ZIP bytes. Output: `dist/release-0.2.4/`.
+Locally computed digest variables exercise strict consistency checks; they do
+not establish remote Actions approval or publication authorization.
+
+No tag, push, publication, remote variable update, hosted CI, external-Project
+package consumption or clean-Mac result is claimed. Obtain applicable exact-byte
+approval, update Actions variables and complete remote/Host-consumption gates
+before publication. Prior release-specific approvals do not approve 0.2.4.
+Never move an existing tag or release.
+
+Local packaging after exporting the candidate LICENSE/NOTICE digests above
+(use an output directory that does not already exist):
+
+```sh
+python3 scripts/release.py stage --tag v0.2.4 --out dist/release-0.2.4
+python3 scripts/release.py check --tag v0.2.4 --out dist/release-0.2.4
+```
+
+The following sections retain historical preparation and authorization records;
+their digests and examples are not current-release approval.
 
 ## 0.2.3 bounded evidence refresh
 
