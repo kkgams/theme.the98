@@ -21,7 +21,7 @@ class ReleaseTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name) / 'repo'
         self.root.mkdir()
-        # branch() must read the synthetic package, not this checkout's version.
+        # identity() must read the synthetic package, not this checkout's version.
         binding = patch.object(release, '__file__', str(self.root / 'scripts/release.py'))
         binding.start()
         self.addCleanup(binding.stop)
@@ -39,9 +39,7 @@ class ReleaseTests(unittest.TestCase):
         proof = json.dumps(evidence).encode()
         (self.root / 'NOTICE-EVIDENCE.json').write_bytes(proof)
         (self.root / 'NOTICE').write_text('NOTICE\nNOTICE-EVIDENCE.json SHA-256: ' + release.digest(proof) + '\n')
-        self.env = {f'APPROVED_{name}_SHA256': release.digest((self.root / name).read_bytes())
-                    for name in ('LICENSE', 'NOTICE')}
-        self.env['GITHUB_REPOSITORY'] = 'kkgams/view.example'
+        self.env = {'GITHUB_REPOSITORY': 'kkgams/view.example'}
         self.patch = patch.dict(os.environ, self.env)
         self.patch.start()
         self.addCleanup(self.patch.stop)
@@ -68,13 +66,10 @@ class ReleaseTests(unittest.TestCase):
             self.assertNotIn('tested', unit['host'])
 
     def test_current_checkout_can_stage_and_check(self):
-        # Exercise the real checkout, not only synthetic evidence. These local
-        # digests validate internal consistency, not remote owner approval.
+        # Exercise the real checkout and evidence without external approval.
         root = SCRIPT.parents[1]
         package = json.loads((root / 'package.json').read_text())
-        env = {f'APPROVED_{name}_SHA256': release.digest((root / name).read_bytes())
-               for name in ('LICENSE', 'NOTICE')}
-        env['GITHUB_REPOSITORY'] = 'kkgams/' + package['name']
+        env = {'GITHUB_REPOSITORY': 'kkgams/' + package['name']}
         with patch.dict(os.environ, env):
             tag = 'v' + package['version']
             release.stage(root, self.out, tag)
@@ -101,24 +96,44 @@ class ReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'canonical Project Unit identity'):
                 self.stage()
 
-    def test_license_notice_and_missing_approval(self):
-        for key in ('APPROVED_LICENSE_SHA256', 'APPROVED_NOTICE_SHA256'):
-            with patch.dict(os.environ, {key: ''}):
-                with self.assertRaises(ValueError):
-                    self.stage()
-        (self.root / 'LICENSE').write_text('changed')
-        with self.assertRaises(ValueError):
+    def test_license_notice_required_without_external_approval(self):
+        with patch.dict(os.environ, {}, clear=True):
             self.stage()
-        (self.root / 'NOTICE').write_text('PROVENANCE_PENDING')
-        with patch.dict(os.environ, {'APPROVED_NOTICE_SHA256': release.digest(b'PROVENANCE_PENDING')}):
+            self.check()
+        for name in ('LICENSE', 'NOTICE'):
+            path = self.root / name
+            original = path.read_bytes()
+            for content in (b'', b'  \n'):
+                path.write_bytes(content)
+                with self.assertRaises(ValueError):
+                    release.payload(self.root, 'v0.1.0')
+            path.unlink()
             with self.assertRaises(ValueError):
-                release.approved(self.root)
+                release.payload(self.root, 'v0.1.0')
+            path.symlink_to(self.root / 'README.md')
+            with self.assertRaises(ValueError):
+                release.payload(self.root, 'v0.1.0')
+            path.unlink()
+            path.write_bytes(original)
+        (self.root / 'NOTICE').write_text('PROVENANCE_PENDING')
+        with self.assertRaises(ValueError):
+            release.legal_files(self.root)
+
+    def test_legal_texts_are_exactly_packaged_and_checked(self):
+        self.stage()
+        name, _ = release.payload(self.root, 'v0.1.0')
+        with zipfile.ZipFile(self.out / name) as bundle:
+            for legal in ('LICENSE', 'NOTICE'):
+                self.assertEqual(bundle.read(legal), (self.root / legal).read_bytes())
+        (self.root / 'LICENSE').write_text('changed legal text')
+        with self.assertRaisesRegex(ValueError, 'candidate content mismatch: LICENSE'):
+            self.check()
 
     def test_tag_mismatch(self):
         with self.assertRaises(ValueError):
             release.stage(self.root, self.out, 'v0.2.0')
         with self.assertRaises(ValueError):
-            release.branch('v0.2.0')
+            release.identity('v0.2.0')
 
     def test_missing_inputs_no_source_fallback(self):
         self.out.mkdir()
@@ -163,16 +178,20 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'NOTICE does not bind'):
             self.stage()
 
-    def test_workflow_gated_upload_and_tag_only_publication(self):
+    def test_workflow_all_branches_and_tag_only_publication(self):
         workflow = SCRIPT.parents[1] / '.github/workflows/release.yml'
         text = workflow.read_text()
-        self.assertIn("vars.LICENSE_SHA256 != '' && vars.NOTICE_SHA256 != ''", text)
+        self.assertIn("branches: ['**']", text)
         self.assertIn("node-version: 24", text)
         self.assertIn("needs: candidate", text)
-        self.assertIn('APPROVED_LICENSE_SHA256: ${{ vars.LICENSE_SHA256 }}', text)
-        self.assertIn('APPROVED_NOTICE_SHA256: ${{ vars.NOTICE_SHA256 }}', text)
+        self.assertNotIn('APPROVED_', text)
+        self.assertNotIn('vars.', text)
+        self.assertNotIn('refs/heads/release', text)
+        self.assertIn('release.py identity', text)
+        self.assertEqual(text.count('name: unit-${{ github.sha }}'), 2)
+        self.assertNotIn('unit-${{ github.ref_name }}', text)
         upload = text[text.index('- uses: actions/upload-artifact@'):text.index('  publish:')]
-        self.assertIn("vars.LICENSE_SHA256 != '' && vars.NOTICE_SHA256 != ''", upload)
+        self.assertNotIn('if:', upload)
         self.assertIn("  publish:\n    if: startsWith(github.ref, 'refs/tags/v')", text)
         self.assertNotIn('--clobber', text)
         self.assertNotIn('npm publish', text)
@@ -198,13 +217,16 @@ class ReleaseTests(unittest.TestCase):
         with patch.object(release.urllib.request, 'urlopen', side_effect=urllib.error.HTTPError('url', 404, 'missing', {}, None)):
             release.absent('owner/repo', 'v0.1.0', 'token')
 
-    def test_branch_head_mismatch_and_api_error(self):
-        with patch.object(release.subprocess, 'run'), patch.object(release.subprocess, 'check_output', side_effect=[b'a', b'b', b'a']), patch.dict(os.environ, {'GITHUB_SHA': 'a'}):
-            with self.assertRaises(ValueError):
-                release.branch('v0.1.0')
-        with patch.object(release.subprocess, 'run', side_effect=RuntimeError('fetch failed')):
+    def test_tag_identity_requires_checkout_and_workflow_sha_only(self):
+        for head, tag, sha in ((b'a', b'b', 'a'), (b'a', b'a', 'b')):
+            with patch.object(release.subprocess, 'check_output', side_effect=[head, tag]), patch.dict(os.environ, {'GITHUB_SHA': sha}):
+                with self.assertRaises(ValueError):
+                    release.identity('v0.1.0')
+        with patch.object(release.subprocess, 'check_output', side_effect=[b'a', b'a']), patch.dict(os.environ, {'GITHUB_SHA': 'a'}):
+            release.identity('v0.1.0')
+        with patch.object(release.subprocess, 'check_output', side_effect=RuntimeError('git failed')):
             with self.assertRaises(RuntimeError):
-                release.branch('v0.1.0')
+                release.identity('v0.1.0')
 
 
 if __name__ == '__main__':

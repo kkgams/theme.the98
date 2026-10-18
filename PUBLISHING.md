@@ -1,9 +1,75 @@
-# Owner publishing procedure
+# Publishing procedure — current policy
 
-Distribution is a GitHub Release ZIP, not npm registry or OCI. Next locally
-prepared version: **0.2.4 / v0.2.4**. Preparation does not tag, push or publish.
+Distribution is a GitHub Release ZIP, never npm or OCI. The version commit and
+its matching `vMAJOR.MINOR.PATCH` tag authorize publication, following
+`template.view`. No special `release` branch, external approval digests, Actions
+LICENSE_SHA256/NOTICE_SHA256 variables, or repeated manual approval is required.
+This policy supersedes all prior manual approval, digest-variable and release
+branch/HEAD gates in the historical records below. It does not authorize agents
+to commit, tag, push or publish without an explicit user instruction.
 
-## 0.2.4 bounded evidence refresh
+Current package version: **0.2.4**. Use a new version if its remote tag or GitHub
+Release already exists; never move a tag or overwrite a release (including draft).
+
+## User-operated preflight and push
+
+Requires Git, authenticated GitHub CLI, Node.js 24, Python 3, a clean checkout on
+any branch, canonical `kkgams/theme.the98` origin fetch/push URLs, and a GitHub
+token with repository push access (needed to see draft releases).
+
+```sh
+scripts/push-release.sh             # read-only remote checks, tests, stage/check
+scripts/push-release.sh --publish   # explicit local tag creation and atomic push
+```
+
+The script derives the version from committed `HEAD:package.json`, validates an
+existing local tag against HEAD, fails on remote tag or GitHub Release existence,
+and fails closed on authentication/API/network errors. It runs `npm test` and
+fresh deterministic stage/check. Default preflight changes no refs. `--publish`
+creates an annotated local tag only if absent and atomically pushes the current
+branch and matching tag without force or implicit follow-tags. Mirror origins
+are rejected. Paginated release API output is strictly validated before use. A failed push may leave the new local tag;
+inspect it before retrying. The script never creates a GitHub Release: tag CI does.
+Atomic push support is required; there is no non-atomic fallback.
+
+Branch and PR CI always test, stage, independently check and upload candidates.
+Only matching version-tag CI publishes, checking tag/checkout/workflow identity,
+release absence and candidate bytes again. No branch-tip fetch or branch-name
+authorization gate remains. CI API errors fail closed; existing releases block.
+
+Local packaging needs no approval environment (output must not exist):
+
+```sh
+python3 scripts/release.py stage --tag v0.2.4 --out dist/new-candidate
+python3 scripts/release.py check --tag v0.2.4 --out dist/new-candidate
+```
+
+LICENSE and NOTICE must be nonempty regular files and travel byte-for-byte with
+README.md, unit.json and deployment files. NOTICE must bind the exact evidence;
+every evidence input and the complete source closure must match. Checksums,
+deterministic ZIP metadata, exact contents and no-overwrite staging remain strict.
+The migration changes no CSS, LICENSE, NOTICE, evidence, comparison or upstream
+MIT bytes. Historical audit inputs bind CSS/MIT/comparison, not release tooling.
+Future bound-source changes require scoped evidence maintenance, not silent
+checksum replacement. Legal terms are unchanged; see LICENSING.md.
+
+Migration validation passes `npm test` (21 tests), `actionlint`, shell syntax,
+and fresh stage/check without approval environment. Current local candidate:
+`dist/tag-release-0.2.4/`; older candidates retain earlier README/metadata bytes.
+Push-helper tests use fakes only: no real tag, remote mutation or publication was
+performed. Source, legal files and evidence bytes are unchanged by this migration.
+
+Local checks are not hosted CI, browser rendering, external-Project desktop or
+clean-Mac validation. Historical test results below apply only to their recorded
+bytes and environments, not this migration.
+
+# Historical preparation and authorization records
+
+Everything below is retained historical evidence, not the current procedure or
+a pending authorization prerequisite. Old digest exports, remote variable setup,
+manual approval and release-branch instructions are superseded above.
+
+## Historical 0.2.4 bounded evidence refresh
 
 The owner approved bounded version/evidence maintenance and local release
 preparation after reviewing mixed button/select groups. The source delta from

@@ -8,7 +8,7 @@ grid contract; previously released artifacts are not modified.
 Prepared local version: `v0.2.4`; assets are `theme.the98-0.2.4.zip` and
 `SHA256SUMS`. The owner-authorized bounded evidence refresh covers grouped-select sizing and
 arrow scaling; historical evidence and tags are unchanged. See `PUBLISHING.md`.
-After separately approved publication,
+After matching version-tag publication (see current policy below),
 download and verify the checksum. Unpack into a separate staging
 folder: copy its deployment files to the same Project-relative paths, and keep its
 LICENSE, NOTICE, README.md and unit.json under `notices/project-units/theme.the98/`.
@@ -16,8 +16,9 @@ Do not unpack metadata over the Project's own README or license. The entry is
 `themes/the98.css` (the archive strips `src/`). Configure that path in Project Config.
 The example's checksum-pinned installer performs these steps for all Units.
 Install dependencies listed below separately; they are not bundled.
-The Host source contract targeted is 2.0.3; package-level GUI validation is a release
-gate, not a claim about every future Host. See `PUBLISHING.md` for release gates.
+The package metadata retains its historical Host source target of 2.0.3. See the
+mixed-group requirements below and `PUBLISHING.md` for validation limitations and
+the current commit-and-tag procedure.
 
 ## Current prerelease Host contract
 
@@ -67,8 +68,8 @@ npm test
 ```
 
 The suite also stages and independently verifies the real checkout against its
-source/evidence/NOTICE bindings. Locally computed legal digests in that regression
-test check internal consistency, not remote publication approval.
+source/evidence/NOTICE bindings without external approval variables. Shell
+protocol tests use git/gh fakes and never mutate remote repositories.
 
 Verification scans Unit-owned `src/` assets plus its test script/package/workflow
 metadata, checks each JavaScript file in that boundary with `node --check`, rejects
@@ -97,7 +98,17 @@ already-downloaded/released theme artifacts.
 ## Release status
 
 GAMS-authored code is Apache-2.0. `package.json` remains private: distribution is a
-GitHub Release ZIP, never npm or OCI. Owner-reviewed LICENSE/NOTICE digest variables
-and release-branch/tag checks gate publication. Identified third-party terms are
-retained in NOTICE, including 98.css MIT terms for the theme. See `LICENSING.md`
-and `PUBLISHING.md`.
+GitHub Release ZIP, never npm or OCI. A version commit plus matching `v` tag
+authorizes publication, following `template.view`; no special release branch or
+external approval digest variables are required. This current policy supersedes
+prior manual approval/release-branch gates; historical records are retained and
+marked historical in `PUBLISHING.md` and `LICENSING.md`.
+
+For users: `scripts/push-release.sh` performs preflight only;
+`scripts/push-release.sh --publish` explicitly pushes the clean current branch
+and matching tag atomically. It refuses existing remote tags/releases and fails
+closed on auth/API errors. CI creates the Release, not the push script. Tests,
+source/evidence consistency, exact LICENSE/NOTICE packaging and overwrite
+protection remain required. Identified third-party terms are retained in NOTICE,
+including 98.css MIT terms. No historical legal evidence is refreshed by this
+release-tooling migration. See `LICENSING.md` and `PUBLISHING.md`.

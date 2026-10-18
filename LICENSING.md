@@ -1,4 +1,23 @@
-## Current 0.2.1 release authorization
+# Licensing and current release policy
+
+GAMS-authored code remains Apache-2.0; identified 98.css portions retain MIT
+terms in NOTICE. LICENSE and NOTICE must exist as nonempty regular files and
+be packaged exactly. NOTICE binds NOTICE-EVIDENCE.json, whose recorded inputs
+must match the source closure and retained comparison/MIT evidence.
+
+The current `template.view` release model authorizes publication through a
+version commit and matching `v` tag, not external approval digest variables or a
+special release branch. It supersedes prior manual checksum/license approval
+and release-branch gates. Source/evidence consistency, exact packaging, tests,
+and no-overwrite protection remain strict. No CSS, LICENSE, NOTICE, upstream
+terms or historical audit evidence is changed by this tooling migration.
+See PUBLISHING.md for the current user-operated preflight/push and CI procedure.
+
+The following authorization and licensing records are historical. Their prior
+approval/digest instructions are not current prerequisites; audit limitations
+and attribution facts are retained, not recertified.
+
+## Historical 0.2.1 release authorization
 
 The owner's current instruction is: "no need for review of checksums / licenses - those area already prepared - drop pending reviews, commit changes, prepare tags - create script (using gh) to push to repos and create releases."
 
@@ -16,7 +35,7 @@ candidate-byte gates remain strict. No source or legal evidence is refreshed.
 No remote push/publication, repository variable or remote configuration change
 is performed by this local preparation. Never move or overwrite an existing tag.
 
-# Licensing
+## Historical licensing record
 
 The owner authorizes Apache-2.0 for GAMS-authored code. LICENSE is the exact
 existing Apache-2.0 text copied from the filesystem Project Unit.
@@ -25,4 +44,5 @@ The theme adapts MIT-licensed jdan/98.css; all 22 embedded SVGs match the upstre
 NOTICE is a bounded engineering inventory, not a perfect ownership assertion.
 No npm dependencies are vendored. Host libraries, icons and fonts fulfilled by
 the Host are excluded and must be reviewed in their own distribution.
-See PUBLISHING.md for exact-byte owner digest approval and public release gates.
+The historical procedure required exact-byte owner digest approval; the current
+policy above supersedes that prerequisite. See PUBLISHING.md for current gates.
