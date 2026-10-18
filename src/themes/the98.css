@@ -483,6 +483,13 @@
     select {
         height: 21px;
     }
+
+    /* Grouped dropdowns stretch with buttons; standalone fields stay 21px. */
+    [role="buttongroup"] > :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]) {
+        height: auto;
+        min-height: 23px;
+    }
+
     td > input[type="text"],
     td > input[type="password"],
     td > input[type="email"],
@@ -624,6 +631,7 @@
         background-image: var(--win98-icon-button-down);
         background-position: top 2px right 2px;
         background-repeat: no-repeat;
+        background-size: auto calc(100% - 4px);
         border-radius: 0;
     }
 
