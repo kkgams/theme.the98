@@ -5,9 +5,10 @@ Initial prerelease extraction of the GAMS `theme` Project Unit from
 grid contract; previously released artifacts are not modified.
 ## Install mapping
 
-Prepared local version: `v0.2.4`; assets are `theme.the98-0.2.4.zip` and
-`SHA256SUMS`. The owner-authorized bounded evidence refresh covers grouped-select sizing and
-arrow scaling; historical evidence and tags are unchanged. See `PUBLISHING.md`.
+Prepared version: `v0.2.5`; assets are `theme.the98-0.2.5.zip` and
+`SHA256SUMS`. The owner-authorized bounded evidence refresh covers canvas-adjacent
+table styling and removal of an obsolete commented scrollbar rule. Historical
+audit findings and tags are unchanged. See `PUBLISHING.md`.
 After matching version-tag publication (see current policy below),
 download and verify the checksum. Unpack into a separate staging
 folder: copy its deployment files to the same Project-relative paths, and keep its

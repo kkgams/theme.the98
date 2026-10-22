@@ -8,7 +8,7 @@ This policy supersedes all prior manual approval, digest-variable and release
 branch/HEAD gates in the historical records below. It does not authorize agents
 to commit, tag, push or publish without an explicit user instruction.
 
-Current package version: **0.2.4**. Use a new version if its remote tag or GitHub
+Current package version: **0.2.5**. Use a new version if its remote tag or GitHub
 Release already exists; never move a tag or overwrite a release (including draft).
 
 ## User-operated preflight and push
@@ -40,8 +40,8 @@ authorization gate remains. CI API errors fail closed; existing releases block.
 Local packaging needs no approval environment (output must not exist):
 
 ```sh
-python3 scripts/release.py stage --tag v0.2.4 --out dist/new-candidate
-python3 scripts/release.py check --tag v0.2.4 --out dist/new-candidate
+python3 scripts/release.py stage --tag v0.2.5 --out dist/new-candidate
+python3 scripts/release.py check --tag v0.2.5 --out dist/new-candidate
 ```
 
 LICENSE and NOTICE must be nonempty regular files and travel byte-for-byte with
@@ -62,6 +62,32 @@ performed. Source, legal files and evidence bytes are unchanged by this migratio
 Local checks are not hosted CI, browser rendering, external-Project desktop or
 clean-Mac validation. Historical test results below apply only to their recorded
 bytes and environments, not this migration.
+
+## 0.2.5 bounded evidence refresh
+
+The owner approved preparation of a new version and a bounded evidence/NOTICE
+refresh after the publish helper rejected the existing v0.2.4 tag at a different
+HEAD. Existing tags are not moved.
+
+Source commit `424641b6bf1bd5bdb6ac5e36018df0e70f0d0efa` removes an obsolete
+commented textarea scrollbar rule and adds canvas-adjacent table styling:
+transparent table/unselected-cell backgrounds and sunken separate-layout cell
+shadows. Selectors are retained exactly as committed, including the `a main`
+prefix; this preparation makes no additional CSS fixes.
+
+NOTICE-EVIDENCE.json changes only the stylesheet digest and appends a maintenance
+record. NOTICE changes only its evidence-binding suffix. Historical audit
+findings, earlier maintenance records, LICENSE, NOTICE body, MIT terms, CSS URL
+assets (including embedded SVGs), THEME-COMPARISON.json, SOURCE.json and production
+verification are preserved. This is checksum maintenance, not a new legal audit.
+
+Local validation passed: `npm test` (21 tests), `git diff --check`, and fresh
+`stage`/`check` for v0.2.5 at `dist/release-0.2.5/`. The candidate includes this
+README and the refreshed NOTICE; PUBLISHING.md is not packaged.
+
+Browser rendering, external-Project desktop consumption, clean-Mac validation and
+hosted CI remain unverified for these bytes. Publication uses the current
+preflight/atomic-push procedure above; local checks do not establish remote success.
 
 # Historical preparation and authorization records
 
