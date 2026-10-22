@@ -534,18 +534,6 @@
         border-top: 3px solid transparent;
     }
 
-    /* table > tbody > tr > td > textarea::-webkit-scrollbar-button:vertical:start:decrement, */
-    /* table > tbody > tr > td > textarea::-webkit-scrollbar-button:vertical:end:increment { */
-    /*     width: 12px; */
-    /*     height: 12px; */
-    /*     border-right: 3px solid transparent; */
-    /*     background-size: 12px 12px; */
-    /*     background-repeat: no-repeat; */
-    /*     background-position: left top; */
-    /*     background-clip: padding-box; */
-    /*     box-sizing: border-box; */
-    /* } */
-
     table > tbody > tr > td > textarea::-webkit-scrollbar-button,
     table > tbody > tr > td > textarea::-webkit-scrollbar-button:vertical:start:decrement,
     table > tbody > tr > td > textarea::-webkit-scrollbar-button:vertical:end:increment,
@@ -562,6 +550,25 @@
         border-bottom: 3px solid transparent;
         background-clip: padding-box;
     }
+
+    main > form:has(> canvas + table) > table,
+    :host > form:has(> canvas + table) > table {
+        background: transparent;
+    }
+
+    a main > form:has(> canvas + table) > table[data-layout="separate"] > tbody > tr > td,
+    :host > form:has(> canvas + table) > table[data-layout="separate"] > tbody > tr > td {
+        box-shadow:
+            var(--border-sunken-outer),
+            var(--border-sunken-inner),
+            0 0 0 var(--grouped-element-spacing) var(--surface);
+    }
+
+    main > form:has(> canvas + table) > table td:not([aria-selected]),
+    :host > form:has(> canvas + table) > table td:not([aria-selected]) {
+        background: transparent;
+    }
+
     input[type="number"] {
         height: 21px;
         width: 5em;
