@@ -5,10 +5,10 @@ Initial prerelease extraction of the GAMS `theme` Project Unit from
 grid contract; previously released artifacts are not modified.
 ## Install mapping
 
-Prepared version: `v0.2.5`; assets are `theme.the98-0.2.5.zip` and
-`SHA256SUMS`. The owner-authorized bounded evidence refresh covers canvas-adjacent
-table styling and removal of an obsolete commented scrollbar rule. Historical
-audit findings and tags are unchanged. See `PUBLISHING.md`.
+Prepared version: `v0.2.6`; assets are `theme.the98-0.2.6.zip` and
+`SHA256SUMS`. The bounded evidence refresh covers the customizable select picker,
+gray group labels and popup overflow handling. Historical audit findings and
+tags are unchanged. See `PUBLISHING.md`.
 After matching version-tag publication (see current policy below),
 download and verify the checksum. Unpack into a separate staging
 folder: copy its deployment files to the same Project-relative paths, and keep its
@@ -59,6 +59,29 @@ The Host fixture `gams/test/fixtures/buttongroup.html`, with this theme selected
 passed 111 browser checks, including icon buttons and eight control orders.
 The existing select-arrow browser regression passed all 10 states. These are
 browser CSS checks, not an external-Project desktop or released-package test.
+
+## Customizable select options (0.2.6)
+
+Single-line dropdowns use the browser's CSS-customizable native picker when
+supported, following ChatKit2's progressive-enhancement approach without extra
+markup or JavaScript. Options retain The98's compact font, square border,
+blue/white selection, gray group labels and muted disabled text, using existing
+theme variables. Grouped options retain regular-weight text.
+The beveled arrow stays unchanged; no extra arrow or selection tick is added.
+The popup sizes to its labels independently of the closed control, reserves
+vertical scrollbar space, and wraps long labels at the viewport limit rather
+than introducing horizontal scrolling. Multiple selects and size-based list
+boxes are not enhanced. Unsupported browsers
+and forced-colors mode keep the existing picker.
+
+`checkSelectPicker()` in `test/select-arrows.browser.js` checks 20 computed-style
+conditions, including theme-variable overrides and list-box exclusions. Run it
+alongside `checkSelectArrows()` in a browser with this theme loaded. `npm test`
+only syntax-checks this fixture, not browser rendering.
+
+Version 0.2.6 includes a bounded source/evidence and NOTICE-binding refresh for
+these changes. Historical audit findings, legal terms and earlier release
+artifacts remain unchanged.
 
 ## Verify
 

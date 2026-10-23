@@ -804,6 +804,81 @@
         background-image: var(--win98-icon-button-down-active);
     }
 
+    /* Enhance only dropdowns, not multiple/size-based list boxes. Keep the
+       existing native picker in unsupported browsers and forced-colors mode. */
+    @supports (appearance: base-select) and selector(select::picker-icon) and selector(select::picker(select)) {
+        @media (forced-colors: none) {
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]),
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"])::picker(select) {
+                appearance: base-select;
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"])::picker-icon {
+                /* The existing background already supplies the Win98 arrow. */
+                display: none;
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"])::picker(select) {
+                margin: 0;
+                padding: 1px;
+                /* Size the popup for its labels, independently of the closed
+                   control. Reserve classic scrollbar space before overflow. */
+                inline-size: max-content;
+                max-inline-size: calc(100dvw - 8px);
+                max-block-size: min(18rem, 70dvh);
+                scrollbar-gutter: stable;
+                overflow-x: hidden;
+                overflow-y: auto;
+                border: 1px solid var(--window-frame);
+                border-radius: 0;
+                box-shadow: none;
+                background: var(--button-highlight);
+                color: var(--text-color);
+                font: inherit;
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]) optgroup {
+                color: var(--button-shadow);
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]) option {
+                display: flex;
+                align-items: center;
+                min-block-size: 0;
+                gap: 0;
+                padding: 1px 3px;
+                border: none;
+                border-radius: 0;
+                background: var(--button-highlight);
+                color: var(--text-color);
+                font: inherit;
+                font-weight: normal;
+                /* At the viewport limit keep the full label readable. */
+                white-space: normal;
+                overflow-wrap: anywhere;
+                text-shadow: none;
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]) option[hidden] {
+                display: none;
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]) option:not(:disabled):is(:checked, :hover, :focus-visible) {
+                background: var(--dialog-blue);
+                color: var(--button-highlight);
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]) option:disabled {
+                color: var(--button-shadow);
+            }
+
+            :is(select:not([multiple]):not([size]), select:not([multiple])[size="1"]) option::checkmark {
+                /* Classic combo boxes indicate selection with color, not ticks. */
+                display: none;
+            }
+        }
+    }
+
     a {
         color: var(--link-blue);
     }

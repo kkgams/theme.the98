@@ -8,7 +8,7 @@ This policy supersedes all prior manual approval, digest-variable and release
 branch/HEAD gates in the historical records below. It does not authorize agents
 to commit, tag, push or publish without an explicit user instruction.
 
-Current package version: **0.2.5**. Use a new version if its remote tag or GitHub
+Current package version: **0.2.6**. Use a new version if its remote tag or GitHub
 Release already exists; never move a tag or overwrite a release (including draft).
 
 ## User-operated preflight and push
@@ -40,8 +40,8 @@ authorization gate remains. CI API errors fail closed; existing releases block.
 Local packaging needs no approval environment (output must not exist):
 
 ```sh
-python3 scripts/release.py stage --tag v0.2.5 --out dist/new-candidate
-python3 scripts/release.py check --tag v0.2.5 --out dist/new-candidate
+python3 scripts/release.py stage --tag v0.2.6 --out dist/new-candidate
+python3 scripts/release.py check --tag v0.2.6 --out dist/new-candidate
 ```
 
 LICENSE and NOTICE must be nonempty regular files and travel byte-for-byte with
@@ -62,6 +62,29 @@ performed. Source, legal files and evidence bytes are unchanged by this migratio
 Local checks are not hosted CI, browser rendering, external-Project desktop or
 clean-Mac validation. Historical test results below apply only to their recorded
 bytes and environments, not this migration.
+
+## 0.2.6 bounded evidence refresh
+
+The owner approved the select-picker changes and requested the next release
+(commit, tag and push). The source delta from v0.2.5 is limited to the
+feature-guarded, non-forced-colors native picker enhancement for single-line
+selects: Win98-themed options, gray optgroup labels, regular-weight option text,
+independent popup sizing, reserved scrollbar space and viewport-bounded label
+wrapping instead of horizontal scrolling. Existing arrow assets are reused;
+list boxes and multiple selects are not enhanced.
+
+NOTICE-EVIDENCE.json updates only the stylesheet input digest and appends a
+maintenance record. NOTICE changes only its evidence-binding suffix. Historical
+audit findings and earlier maintenance records, LICENSE, NOTICE body, MIT terms,
+all CSS URL assets, THEME-COMPARISON.json, SOURCE.json and strict verification
+remain unchanged. This is bounded checksum maintenance, not a new legal audit.
+
+Development Chrome checks passed 20 picker and 10 arrow assertions. A 320px
+viewport probe confirmed that an exceptionally long label wraps inside the
+312px popup without option horizontal overflow. These do not establish
+classic-scrollbar external-Project desktop, clean-Mac or hosted CI results.
+Release validation uses npm test and fresh stage/check for v0.2.6; publication
+uses the authenticated preflight/atomic-push helper above.
 
 ## 0.2.5 bounded evidence refresh
 
