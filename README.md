@@ -6,7 +6,7 @@ issues and future releases. This repository no longer builds or publishes themes
 
 The CSS entry remains `themes/the98.css`. After the new collection release is
 published, update Project URLs from `theme.the98-<version>.zip#themes/the98.css`
-to `theme.gams-<version>.zip#themes/the98.css` under the new repository's releases.
+to `theme.gams.zip#themes/the98.css` under the new repository's releases.
 Existing tags, release assets and pinned URLs remain unchanged; do not update
 consumers to an unpublished release.
 
