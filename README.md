@@ -3,6 +3,18 @@
 Initial prerelease extraction of the GAMS `theme` Project Unit from
 `themes/the98.css`. Development source also supports the shared selectable-cell
 grid contract; previously released artifacts are not modified.
+## Local development
+
+`make open` opens this repository's `gams.json` in `tools/gams.app` on macOS
+Apple Silicon, downloading the released Host only when absent and retaining its
+notices. It selects the local Unit source with pinned released dependencies;
+no sibling checkout or local build is required. `GAMS_APP_CWD` is set explicitly.
+
+`make serve-docs` previews `docs/` with pinned `justgook/wiki` v1.4.0;
+`DOCS_PORT` defaults to 8080. `make validate-docs` validates it and `make docs`
+builds `build/site/`. Every push to `release` publishes this site through Pages,
+independently of version tags. See `docs/index.md` for setup and checks.
+
 ## Install mapping
 
 Prepared version: `v0.2.6`; assets are `theme.the98-0.2.6.zip` and
